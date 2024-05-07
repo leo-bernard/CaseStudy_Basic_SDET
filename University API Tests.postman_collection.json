@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "933e37b3-0253-4dbf-a54f-3c594792afc4",
+		"name": "University API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33863068"
+	},
+	"item": [
+		{
+			"name": "Positive Test Case",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Verify HTTP status code",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Verify response body",
+							"pm.test(\"Response body is not empty\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://universities.hipolabs.com/search?country=United+States",
+					"protocol": "http",
+					"host": [
+						"universities",
+						"hipolabs",
+						"com"
+					],
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "United+States"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Negative Test Case",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Verify HTTP status code",
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"// Verify response body for error message",
+							"pm.test(\"Response body indicates error\", function () {",
+							"    pm.response.to.have.jsonBody({",
+							"        \"status\": \"error\",",
+							"        \"message\": \"Country not found\"",
+							"    });",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://universities.hipolabs.com/search?country=InvalidCountry",
+					"protocol": "http",
+					"host": [
+						"universities",
+						"hipolabs",
+						"com"
+					],
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "InvalidCountry"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
